@@ -146,7 +146,11 @@ router.post('/updateUser', async function(req, res) {
     const result = await pool.query("UPDATE users SET name='"+req.body.name+"', position='"+req.body.nickname+"'"+
         "WHERE email = '"+req.body.email+"'")
 
-    const usersRelations = await pool.query("SELECT * FROM relations WHERE boss = '"+req.body.email+"'")
+    const usersRelations = await pool.query("SELECT * FROM relations WHERE boss = '"+req.body.email+"' OR employeeref = '"+req.body.email+"'")
+
+    const myBossArray = req.body['relation']["boss"];
+    const myEmployeeArray = req.body['relation']["employee"];
+    
     await pool.end();
     res.setHeader('Content-Type', 'application/json');
     
