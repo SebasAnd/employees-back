@@ -143,8 +143,10 @@ router.post('/addUser', async function(req, res) {
 router.post('/updateUser', async function(req, res) {  
   try{
     const pool = new Pool(credentials);//UPDATE public.users    ;
-    const result = await pool.query("UPDATE users SET name='"+req.body.name+"', nickname='"+req.body.nickname+"', password='"+req.body.password+"', is_admin='"+req.body.is_admin+"'"+
+    const result = await pool.query("UPDATE users SET name='"+req.body.name+"', position='"+req.body.nickname+"'"+
         "WHERE email = '"+req.body.email+"'")
+
+    const usersRelations = await pool.query("SELECT * FROM relations WHERE boss = '"+req.body.email+"'")
     await pool.end();
     res.setHeader('Content-Type', 'application/json');
     
