@@ -17,14 +17,18 @@ app.get('/admin', (req, res) => {
   res.send('HelloWorld!')
 })
 
+/*
 var corsOptions = {
-  "origin": "*",
-  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-  "preflightContinue": false,
-  "optionsSuccessStatus": 204
+  origin: '*',
+  optionsSuccessStatus: 200, // For legacy browser support
+  methods: "GET, POST"
+}*/
+
+const corsOptions ={
+  origin:'http://localhost:4200', 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200
 }
-
-
 
 app.use(cors(corsOptions));
 app.listen(port, () => {

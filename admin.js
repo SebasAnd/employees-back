@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const cors = require('cors');
 require('dotenv').config();
 const { Pool,Client } = require('pg');
 var bodyParser = require('body-parser');
@@ -10,6 +11,13 @@ const credentials ={
     password: process.env.DBPASSWORD,
     port: process.env.DBPORT,
   };
+
+  router.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    next();
+  })
 
   /*const credentials={
     connectionString: process.env.DATABASE_URL,
@@ -55,7 +63,7 @@ async function VerifyNullBoss(){
           if(bossWithoutEmployees['email']!= undefined)
           {
             const addInrelations = await pool.query("INSERT INTO relations(boss, employeeref)  VALUES ('"+bossWithoutEmployees['email']+"', '"+employees['rows'][i]["email"]+"');");
-            const updateVersion = await pool.query("UPDATE employees  SET version="+ (parseInt(employees['rows'][i]["version"], 10) + 1) +"WHERE email='"+employees['rows'][i]["email"]+"';")
+            const updateVersion = await pool.query("UPDATE employees SET version="+ (employees['rows'][i]["version"] + 1) +"WHERE email='"+employees['rows'][i]["email"]+"';")
 
             console.log(addInrelations,updateVersion);
           }else{
@@ -65,7 +73,7 @@ async function VerifyNullBoss(){
             bossWithoutEmployees = getBossWithLessEmployees['rows'][0];
 
             const addInrelations = await pool.query("INSERT INTO relations(boss, employeeref)  VALUES ('"+bossWithoutEmployees['email']+"', '"+employees['rows'][i]["email"]+"');");
-            const updateVersion = await pool.query("UPDATE employees  SET version="+ (parseInt(employees['rows'][i]["version"], 10) + 1)+" WHERE email='"+employees['rows'][i]["email"]+"';")
+            const updateVersion = await pool.query("UPDATE employees SET version="+ (employees['rows'][i]["version"] + 1)+" WHERE email='"+employees['rows'][i]["email"]+"';")
 
             console.log(addInrelations,updateVersion);
 
@@ -87,6 +95,8 @@ router.get('/getUser', async function(req, res) {
       const relations = await pool.query("SELECT * FROM relations WHERE boss='"+req.query.email+"' OR employeeref='"+req.query.email+"'");
       await pool.end();
       res.setHeader('Content-Type', 'application/json');
+      res.set('Access-Control-Allow-Origin', '*');
+    res.setHeader("Access-Control-Allow-Origin", "*")
 
       //await VerifyNullBoss();
       
@@ -173,11 +183,11 @@ router.post('/addUser', async function(req, res) {
     res.setHeader('Content-Type', 'application/json');
     
     res.set('Access-Control-Allow-Origin', '*');
+    res.setHeader("Access-Control-Allow-Origin", "*")
     res.send(JSON.stringify(result));
     
 
   }catch(err){
-    res.set('Access-Control-Allow-Origin', '*');
     res.send({'error':err});
   }
   
@@ -261,6 +271,10 @@ router.post('/updateUser', async function(req, res) {
     await pool.end();
     res.setHeader('Content-Type', 'application/json');
     res.set('Access-Control-Allow-Origin', '*');
+    res.setHeader("Access-Control-Allow-Origin", "*")
+
+    //req.setHeader("Access-Control-Allow-Origin", "*")
+
     
       res.send(JSON.stringify(result));
     
@@ -279,8 +293,10 @@ router.post('/deleteUser', async function(req, res) {
     await pool.end();
     res.setHeader('Content-Type', 'application/json');
     res.set('Access-Control-Allow-Origin', '*');
+    res.setHeader("Access-Control-Allow-Origin", "*")
     
       res.send(JSON.stringify(delUser));
+      
     
 
   }catch(err){
@@ -288,5 +304,16 @@ router.post('/deleteUser', async function(req, res) {
   }
   
 });
+
+const corsOptions ={
+  origin:'*', 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200,
+  methods: "GET,POST,PUT,DELETE"
+}
+
+//router.use(cors(corsOptions));
+
+
 
 module.exports = router;
