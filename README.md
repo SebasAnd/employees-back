@@ -1,6 +1,6 @@
 # <h1>Employess APP</h1>
 
-this app contains a crud for a company management, this company has a hierarchical structure into his employees for this reason this back manage the database using two tables
+this app was created with nodejs  and contains a crud for a company managemen this company has a hierarchical structure into his employees for this reason this back manage the database using two tables
 
 1. employees: where the personal information of the employees is saved, this contains the email, name, position and the version of the employee register
 2. relations: this table contains the diferent relations boss/employee of every employee of the company
@@ -24,7 +24,7 @@ the user is updated and in other statement that wiil be described in the nexts p
 ### <h2>Hierarchical Query with Versioning:</h2>
 Create a query or algorithm that fully returns the hierarchy of employees, incorporating versioning information through a web service.
 
-this web service is stores in this repository <em>https://github.com/SebasAnd/empl-front</em> and contains a web app that connect with this back and cand show and edit the databse information. 
+this web service is stores in this repository <em>https://github.com/SebasAnd/empl-front</em> and contains a web app that connect with this back and can show and edit the databse information. 
 This front was created in angular version 17.
 
 ### <h2>Update Scenario:</h2>
