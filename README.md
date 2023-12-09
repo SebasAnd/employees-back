@@ -24,7 +24,7 @@ the user is updated and in other statement that wiil be described in the nexts p
 2. Hierarchical Query with Versioning:
 Create a query or algorithm that fully returns the hierarchy of employees, incorporating versioning information through a web service.
 
-this web service is stores in this repository <em><a href=\"https://github.com/SebasAnd/empl-front\]">Employees Front</a></em> and contains a web app that connect with this back and cand show and edit the databse information. 
+this web service is stores in this repository <em>"https://github.com/SebasAnd/empl-front></em> and contains a web app that connect with this back and cand show and edit the databse information. 
 This front was created in angular version 17.
 
 3. Update Scenario:
