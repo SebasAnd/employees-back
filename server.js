@@ -18,10 +18,13 @@ app.get('/admin', (req, res) => {
 })
 
 var corsOptions = {
-  origin: '*',
-  optionsSuccessStatus: 200, // For legacy browser support
-  methods: "GET, POST"
+  "origin": "*",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204
 }
+
+
 
 app.use(cors(corsOptions));
 app.listen(port, () => {

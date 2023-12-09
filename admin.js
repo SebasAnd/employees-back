@@ -122,6 +122,7 @@ router.get('/getUsers', async function(req, res) {
         //await VerifyNullBoss();
         
         if(result['rows'].length > 0){
+          res.set('Access-Control-Allow-Origin', '*');
           res.send(JSON.stringify({"employees": result['rows'], "relations": relations['rows']}));
         }else{
           res.send(JSON.stringify({result  :{
@@ -150,9 +151,9 @@ router.post('/addUser', async function(req, res) {
     const result = await pool.query("INSERT INTO employees(email, name, position, version)"+
     "VALUES ('"+req.body.email+"','"+req.body.name+"' , '"+req.body.position+"','"+1+"' )");
     
-    if(content['relation'].length != 0){
-      for(let i = 0; i< content['relation'].length; i++){
-        const addInrelations = await pool.query("INSERT INTO relations(boss, employeeref)  VALUES ('"+content['relation'][i]+"', '"+content['email']+"');");
+    if(content['relation']['boss'].length != 0){
+      for(let i = 0; i< content['relation']['boss'].length; i++){
+        const addInrelations = await pool.query("INSERT INTO relations(boss, employeeref)  VALUES ('"+content['relation']['boss'][i]+"', '"+content['email']+"');");
         console.log(addInrelations);
       }
     }else{
@@ -160,14 +161,23 @@ router.post('/addUser', async function(req, res) {
       VerifyNullBoss();
       }
     }
+
+    console.log(content['relation']['employee'], content['relation']['boss'])
+    if(req.body.position == 'boss'){
+      for(let t = 0; t < content['relation']['employee'].length;t++){
+        const addInrelations = await pool.query("INSERT INTO relations(boss, employeeref)  VALUES ('"+content['email']+"', '"+content['relation']['employee'][t]+"');");
+        console.log(addInrelations);
+      }      
+    }
     await pool.end();
     res.setHeader('Content-Type', 'application/json');
     
-    
-      res.send(JSON.stringify(result));
+    res.set('Access-Control-Allow-Origin', '*');
+    res.send(JSON.stringify(result));
     
 
   }catch(err){
+    res.set('Access-Control-Allow-Origin', '*');
     res.send({'error':err});
   }
   
@@ -250,6 +260,7 @@ router.post('/updateUser', async function(req, res) {
     
     await pool.end();
     res.setHeader('Content-Type', 'application/json');
+    res.set('Access-Control-Allow-Origin', '*');
     
       res.send(JSON.stringify(result));
     
@@ -267,6 +278,7 @@ router.post('/deleteUser', async function(req, res) {
     VerifyNullBoss();
     await pool.end();
     res.setHeader('Content-Type', 'application/json');
+    res.set('Access-Control-Allow-Origin', '*');
     
       res.send(JSON.stringify(delUser));
     
