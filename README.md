@@ -1,42 +1,41 @@
-# Employee Management System
+# Employess APP
 
-This application manages company information using a CRUD system, focusing on the hierarchical structure of its employees. The database is structured with two tables:
+this app contains a crud for a company management, this company has a hierarchical structure into his employees for this reason this back manage the database using two tables
 
-1. **employees:** Contains personal information such as email, name, position, and employee version.
-2. **relations:** Stores various boss/employee relationships within the company.
+1. employees: where the personal information of the employees is saved, this contains the email, name, position and the version of the employee register
+2. relations: this table contains the diferent relations boss/employee of every employee of the company
 
-After defining the data structure, the backend provides the following endpoints for CRUD operations:
+after the data structure is defined, the back use the current endopint to manage the crud of the users
 
-1. **addUser:** POST endpoint to create a new user in the system.
-2. **getUsers:** Retrieves information about employees and their relationships in the system.
-3. **getUser?email="...":** Retrieves information about a specific user, including personal details and related relationships.
-4. **updateUser:** Endpoint to update employee information, including their relationship.
-5. **deleteUser:** Deletes information about an employee in the system.
+1. addUser: POST endpoint that creates a new user in the system
+2. getUsers: get the information of the employees and relations in the current system.
+3. getUser?email="...": get the information of a particular user in the system, this includes his personal information and the relation where the employee is involved
+4. updateUser: enpoint created to update the employee information this also includes the realtion of the employee
+5. deleteUser: delete the imformation of one employee in the system
 
-## Particular Requirements
+Exists also some particualr requitements to conisder for the system, the solution of them is decribed on this list
 
-### 1. Data Structure
+### 1. <h2>Data Structure:</h2>
+Define the data structure that will efficiently store information about employees, their hierarchical relationships, and the version associated with each employee.
 
-Define an efficient data structure to store information about employees, their hierarchical relationships, and the version associated with each employee. The details are explained in the preceding sections.
+this parameter was solved in the information described before where expains the data structure and the data management, the version is a parmeter that exists in the employee table and this parameter is updated when
+the user is updated and in other statement that wiil be described in the nexts point 
 
-### 2. Hierarchical Query with Versioning
+### 2. <h2>Hierarchical Query with Versioning:</h2>
+Create a query or algorithm that fully returns the hierarchy of employees, incorporating versioning information through a web service.
 
-The hierarchical query with versioning is implemented through a web service, available in [this repository](https://github.com/SebasAnd/empl-front). The accompanying front-end, developed in Angular version 17, connects to this backend to display and edit database information.
+this web service is stores in this repository <em>https://github.com/SebasAnd/empl-front</em> and contains a web app that connect with this back and cand show and edit the databse information. 
+This front was created in angular version 17.
 
-### 3. Update Scenario
+### 3. <h2>Update Scenario:</h2>
+Detail the update process in the database when a change occurs in an employee's supervisor. Explain how the version of the updated employee is incremented in this context.
 
-The update process in the database is handled by the function named "VerifyNullBoss()." This function validates all employees and determines if an employee lacks a direct supervisor. The scenarios and solutions are detailed in the application. Every use of this function updates the version of an employee without a boss.
+this validation exists in functon of this app named "VerifyNullBoss()", here validates all the employess of the database, and detemine if that employess has not a boss if this happend two scenarios occurs
+1. exist a boss without employees: in this case the employee will be assigned to this boss in the realtion table.
+2. all the boss have employees: in this case the system will find the boss with less employess in charge and will add the employee to this boss
+this funciton is also called when any update or change toe employess occurs. Every time that this function is used the version of the employee without a boss will be updated.
 
-### 4. Handling Nulls
+### 4. <h2>Handling Nulls:</h2>
+Explain how you would address the situation of an employee who does not have a direct supervisor, considering possible scenarios and providing an effective solution.
 
-The function "VerifyNullBoss()" is also invoked in scenarios where an employee does not have a direct supervisor during any employee change.
-
-## Technical Test
-
-### Implementation
-
-The code corresponding to the solution is provided in the language, frameworks, and technologies of your choice.
-
-### Usage Example
-
-An example is given with at least three employees and their hierarchical relationships, including cases where an employee changes their supervisor and where an employee does not have a direct superior.
+The function "VerifyNullBoss()" also will be used if this case occurs in any employees change 
