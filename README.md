@@ -29,5 +29,5 @@ this validation exists in functon of this app named "VerifyNullBoss()", here val
 2. all the boss have employees: in this case the system will find the boss with less employess in charge and will add the employee to this boss
 this funciton is also called when any update or change toe employess occurs. Every time that this function is used the version of the employee without a boss will be updated.
 
-### 4. <h2>Handling Nulls:</h2>
+### <h2>Handling Nulls:</h2>
 The function "VerifyNullBoss()" also will be used if this case occurs in any employees change 
