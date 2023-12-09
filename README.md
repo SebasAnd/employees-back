@@ -15,19 +15,19 @@ after the data structure is defined, the back use the current endopint to manage
 
 Exists also some particualr requitements to conisder for the system, the solution of them is decribed on this list
 
-1. Data Structure:
+1. <h2>Data Structure:</h2>
 Define the data structure that will efficiently store information about employees, their hierarchical relationships, and the version associated with each employee.
 
 this parameter was solved in the information described before where expains the data structure and the data management, the version is a parmeter that exists in the employee table and this parameter is updated when
 the user is updated and in other statement that wiil be described in the nexts point 
 
-2. Hierarchical Query with Versioning:
+2. <h2>Hierarchical Query with Versioning:</h2>
 Create a query or algorithm that fully returns the hierarchy of employees, incorporating versioning information through a web service.
 
 this web service is stores in this repository <em>https://github.com/SebasAnd/empl-front</em> and contains a web app that connect with this back and cand show and edit the databse information. 
 This front was created in angular version 17.
 
-3. Update Scenario:
+3. <h2>Update Scenario:</h2>
 Detail the update process in the database when a change occurs in an employee's supervisor. Explain how the version of the updated employee is incremented in this context.
 
 this validation exists in functon of this app named "VerifyNullBoss()", here validates all the employess of the database, and detemine if that employess has not a boss if this happend two scenarios occurs
@@ -35,7 +35,7 @@ this validation exists in functon of this app named "VerifyNullBoss()", here val
 2. all the boss have employees: in this case the system will find the boss with less employess in charge and will add the employee to this boss
 this funciton is also called when any update or change toe employess occurs. Every time that this function is used the version of the employee without a boss will be updated.
 
-4. Handling Nulls:
+4. <h2>Handling Nulls:</h2>
 Explain how you would address the situation of an employee who does not have a direct supervisor, considering possible scenarios and providing an effective solution.
 
 The function "VerifyNullBoss()" also will be used if this case occurs in any employees change 
